@@ -1,72 +1,22 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <link rel="stylesheet" href="http://openlayers.org/en/v3.14.0/css/ol.css" type="text/css">
-    <style>
-      .map {
-        height: 500px;
-        width: 100%;
-        background-color: black;
-      }
-    </style>
-    <script src="http://openlayers.org/en/v3.14.0/build/ol.js" type="text/javascript"></script>
-    <title>OpenLayers 3 example</title>
-  </head>
-  <body>
-    <h2>My Map</h2>
-    <div id="map" class="map"></div>
-    <script type="text/javascript">
-
-      var extent = [0, 0, 1200, 600];
-
-      var projection = new ol.proj.Projection({
-        units: 'pixels',
-        extent: extent
-      });
-
-      var coords = [];
-
-      for(var i = 0; i < 4800; i++) {
-        coords.push([Math.floor(Math.random()*1200 + 1), Math.floor(Math.random()*600 + 1)]);
-      }
-
-      var lonLat = new ol.geom.MultiPoint(coords, 'XY');
-
-      var pointFeature = new ol.Feature({
-        geometry: lonLat
-      });
-
-      var heatmapSource = new ol.source.Vector({
-        features:[]
-      });
-
-      heatmapSource.addFeature(pointFeature);
-
-      var map = new ol.Map({
-        target: 'map',
-        layers: [
-          new ol.layer.Image({
-            source: new ol.source.ImageStatic({
-              url: "images/7dccc1be.png",
-              projection: projection,
-              imageExtent: extent
-            })
-          }),
-
-          new ol.layer.Heatmap({
-            source: heatmapSource,
-            radius: 5
-          })
-        ],
-        view: new ol.View({
-          projection: projection,
-          center: ol.extent.getCenter(extent),
-          zoom: 0.6,
-          maxResolution: 1.3,
-          maxZoom: 2
-        })
-      });
-
-    </script>
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="http://openlayers.org/en/v3.14.2/css/ol.css" type="text/css" />
+  <link href="css/ol-popup.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <title>heatmap demo</title>
+</head>
+<body>
+  <div id="map" class="map"></div>
+  <div id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content"></div>
+  </div>
+  <script src="https://openlayers.org/en/v3.14.2/build/ol.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <script src="js/main.js"></script>
+</body>
 </html>
